@@ -1,0 +1,260 @@
+
+/*
+    Wrapper styling
+*/
+
+#wrapper {
+    min-height: -webkit-calc(100% - 100px);     /* Chrome */
+    min-height: -moz-calc(100% - 100px);     /* Firefox */
+    min-height: calc(100% - 100px);     /* native */
+}
+
+
+
+/*
+    Navbar styling
+*/
+
+.navbar {
+    position: relative;
+    min-height: 60px;
+    margin-bottom: 5px;
+    border: 2px solid transparent;
+}
+.navbar-default {
+	background-color: #068037;
+	border-color: #068037;
+	background-image: url("../img/nav-gradient.png");
+	background-repeat: repeat;
+}
+
+.navbar-fixed-top {
+	min-height: 58px;
+}
+
+.navbar-default .navbar-brand {
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 1.5em;
+	-webkit-margin-before: 0.09em;
+	-webkit-margin-after: 0.09em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+}
+.navbar-default .navbar-brand:hover, .navbar-default .navbar-brand:focus {
+	color: #ffffff;
+}
+.navbar-default .navbar-text {
+	color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a {
+	font-size: 17px;
+	color: #ffffff;
+}
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	color: #ffff7a;
+}
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+	color: #ffffff;
+	background-color: #32cd32;
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+	color: #ffffff;
+	background-color: #32cd32;
+}
+ .navbar-default .navbar-nav > .active > a, 
+ .navbar-default .navbar-nav > .active > a:hover, 
+ .navbar-default .navbar-nav > .active > a:focus {
+      color: #ffffff;
+      background: #567e3a;
+ }
+
+.navbar-dropdown-background {
+  background-color: #567e3a;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+	background-color: #ffffff;
+}
+.navbar-default .navbar-toggle .icon-bar {
+	background-color: #5c5858;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+	border-color: #5c5858;
+}
+.navbar-default .navbar-link {
+	color: #5c5858;
+}
+.navbar-default .navbar-link:hover {
+	color: #000000;
+}
+
+@media (max-width: 767px) {
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+		color: #5c5858;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+		color: #000000;
+	}
+	.navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+		color: #000000;
+		background-color: #32cd32;
+	}
+}
+
+@media (min-width: 768px) {
+.navbar-nav>li>a {
+    padding-top: 22px;
+    padding-bottom: 15px;
+}
+}
+
+.navbar-brand img 
+{
+	margin-bottom: 50px;
+	margin-top: -8px;
+	padding-right: 30px;
+
+	max-width: 90%;
+	vertical-align: middle;
+	border: 0;
+	-ms-interpolation-mode: bicubic;
+}
+
+
+
+
+
+
+/*
+    Carousel Styling
+*/
+
+
+.carousel-section {
+    background-image: url("../img/carousel-background.jpg");
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.carousel-razon {
+  padding-top: 2%;
+    background-color: #808080;
+    background-color: rgba(90, 90, 90, 0.9);
+    padding-bottom: 1%;
+}
+.carousel {
+    position: relative;
+}
+
+.carousel-inner > .item > img,
+  .carousel-inner > .item > a > img {
+      position:relative;
+      width: 90%;
+      height:80%;
+      margin: auto;
+  }
+
+.carousel-razon .carousel-caption {
+    position: static;
+    text-align: left;
+}
+
+@media screen and (min-width: 768px)
+.carousel-caption {
+    right: 20%;
+    left: 20%;
+    padding-bottom: 30px;
+}
+.carousel-caption {
+    position: absolute;
+    right: 15%;
+    bottom: 20px;
+    left: 15%;
+    z-index: 10;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,.6);
+}
+
+#tick {
+  position:relative;
+  width: 5%;
+  height:3%;
+  margin: auto;
+}
+
+
+
+
+
+
+
+/*
+    Footer Styling    
+*/
+
+
+
+
+#footer {
+    position: relative;
+    bottom:0;
+   	width:100%;
+    background: #ffffff;
+    height: 80px;
+    border-top: 2px solid #6eac00;
+    padding: 10px;
+    padding-top:5px;
+    clear:both;
+
+}
+
+#footer p {
+    color: #808080;
+    font-size: 12px;
+    margin: 0;
+    font-family: arial;
+    line-height: 1.5px;
+    display: block;
+    -webkit-margin-before: 1em;
+    -webkit-margin-after: 1em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}
+
+.loading { margin: auto; }
+ 
+.loading span {
+  line-height: 32px;
+  margin-left: 12px;
+  font-size: 16px;
+  vertical-align: middle;
+}
+.loading img{ vertical-align: middle; }
+
+.loading_wrp {
+  background-color: #FFF;
+  display: block;
+  height: 100%;
+  left: 0;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 1020;
+}
+.loading_wrp .x16 span {
+  line-height: 16px;
+  font-size: 12px;
+  margin-left: 6px;
+}
+ 
+.loading_wrp .x32 img {
+  width: 32px;
+  height: 32px;
+}

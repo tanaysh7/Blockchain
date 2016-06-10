@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<HTML>
+
+	<HEAD>
+		<TITLE>BlockChain FIMT Project</TITLE>
+	</HEAD>
+
+	<link rel="stylesheet" href="frameworks/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="frameworks/bootstrap/css/bootstrap-theme.min.css" >
+	<link rel="stylesheet" href="css/normalize.css" >
+	<link rel="stylesheet" href="css/style.css" >
+
+
+
+
+	<BODY class="smoothscroll enable-animation">
+		<div id="wrapper">
+			<header>
+				<div class="navbar navbar-default" >
+					<div class="container">
+						<div class="navbar-header">
+							<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+								<span class="sr-only">Toggle navigation</span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+								<span class="icon-bar"></span>
+							</button>
+							<a class="navbar-brand"><img  src="img/fidelity_logo.png" alt="Fidelity" style="float:left"></a>
+							<a class="navbar-brand text-muted" ><span class="navbar-header">Fidelity BlockChain Dashboard </span></a>
+						</div>
+						<div class="collapse navbar-collapse">
+
+							<ul class="nav navbar-nav navbar-right">
+								<li><a href="index">Home</a></li>
+								<li class="dropdown">
+									<a class="dropdown-toggle" data-toggle="dropdown">Transactions<span class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<li><a href="createTransaction">Create</a></li>
+										<li><a href="viewTransactions">View List</a></li>	
+									</ul>
+								</li>	
+								<li class="dropdown active">
+									<a class="dropdown-toggle" data-toggle="dropdown">Assets<span class="caret"></span></a>
+									<ul class="dropdown-menu">
+										<li><a href="createAsset">Create</a></li>
+										<li><a href="viewAsset">View List</a></li>	
+									</ul>
+								</li>	
+								<li><a href="stats">Blockchain Stats</a></li>	
+								<li><a href="about">About Us</a></li>
+							</ul>
+
+						</div>
+					</div>
+				</div>
+			</header>	
+			<div class="jumbotron">
+				<h1>&nbsp;&nbsp;&nbsp; Create Assets</h1>
+			</div>
+
+			<br>
+			<br>
+			<div class="row">
+				<div class="col-sm-1"></div>
+				<div class="col-sm-4" style="background-color:#ededed;"><center>
+					<h3>Asset Name </h3><input id="inputLabel" type="text" class="form-control" style="width:400px;" value="" placeholder="Enter label for Asset"/>
+					<h3>Quantity </h3><input id="inputAmountID" type="text" class="form-control" style="width:400px;" value="" placeholder="Enter Amount to be issued"/>
+					<h3>Receiver Account </h3><input id="inputAccountID" type="text" class="form-control" style="width:400px;"  value="" placeholder="Enter Destination Account"/>
+					<br>		
+					<button id="pass"class="btn btn-primary btn-lg">ISSUE</button>
+					<br>
+					<br>
+					<br>
+				</center></div>
+				<div class="col-sm-1"></div>
+				<div class="col-sm-4" style="background-color:#ededed;"><center>
+					<h1>Recently Issued Assets</h1>
+					<div class="table-responsive" id="latest-assets">
+						Loading..
+					</div>
+					<button id="refresh"class="btn btn-primary btn-lg">REFRESH</button>
+					<br>
+					<br>
+				</center></div>
+			</div>
+			<br>
+			<br>
+		</div>
+		<footer>
+			<div id="footer">
+				<div class="container">
+					<div class="span6">
+						<p class="pull-right"><img src="img/footer_fid_logo.png" alt="Fidelity Investments"></p>
+						<p><strong>For employee use only.</strong></p>
+						<p>Unauthorized access to or use of this system is prohibited.</p>
+						<p>All access and use may be monitored and recorded.</p>
+						<p>To report an issue, contact us at +91 9600968059.</p>
+					</div>
+				</div>
+			</div>
+		</footer>
+		<script type="text/javascript" src="frameworks/jquery/jquery-2.1.4.min.js"></script>
+		<script type="text/javascript" src="frameworks/bootstrap/js/bootstrap.min.js" ></script>
+
+
+		<script>
+			$(document).ready(function(){
+				issueButton();
+				loadTable();
+				refreshButton();
+			});
+
+			function refreshButton(){
+				$("#refresh").click(function(){	
+					loadTable();
+				});
+			}
+
+			function loadTable(){	
+			var tableCounter = 0; // Counter variable to display only 7 table entries	
+			var string = "<table class='table table-striped'><tr><th>Account ID</th><th>Account Label</th><th>Asset Label</th><th>Amount</th></tr>";		
+			$.get('/fetch_assets_list').then(function(d) {
+				jQuery.each(d, function(i, val) {
+					tableCounter++;
+					var outputs =  val['outputs'];				
+					string += "<tr><td>"+outputs[0]['account_id']+"</td><td>"+ outputs[0]['account_label'] +"</td><td>"+outputs[0]['asset_label']+"</td><td>"+outputs[0]['amount']+"</td></tr>";
+					if(tableCounter == 5)
+						return false;
+				});
+				string += "</table>";
+				$('#latest-assets').html(string);
+			});		
+		}
+		function issueButton(){
+			$("#pass").click(function(){	
+				var recvrAccount = $("#inputAccountID").val();
+				if( $("#inputAmountID").val()>=1000000000000000000)
+				alert("Too Large");
+				else{
+				var recvrAmount = $("#inputAmountID").val();
+				var assetLabel = $("#inputLabel").val();
+
+				$.post("/create-asset",{account: recvrAccount,amount: recvrAmount, label:assetLabel}, function(data){
+					alert("Added");
+					$("#inputAccountID").val("");
+					$("#inputAmountID").val("");
+					$("#inputLabel").val("");
+				});
+				}
+			});
+		}
+	</script>
+</BODY>
+
+</HTML>

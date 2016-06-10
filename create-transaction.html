@@ -1,0 +1,299 @@
+
+<HTML>
+
+	<HEAD>
+		<TITLE>BlockChain FIMT Project</TITLE>
+	</HEAD>
+
+	<link rel="stylesheet" href="frameworks/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" href="frameworks/bootstrap/css/bootstrap-theme.min.css" >
+	<link rel="stylesheet" href="css/normalize.css" >
+	<link rel="stylesheet" href="css/style.css" >
+	<script type="text/javascript" src="frameworks/jquery/jquery-2.1.4.min.js"></script>
+	<script src="jquery-loader.js"></script>
+	<script type="text/javascript" src="frameworks/bootstrap/js/bootstrap.min.js" ></script>
+	<BODY class="smoothscroll enable-animation">
+	<!--Style tag to NOT display the default entry in all dropdowns, ie '-select account-'-->
+	<style>
+	.removable
+	{
+	    display:none;
+	}
+	</style>
+<header>
+	<div class="navbar navbar-default" >
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand"><img  src="img/fidelity_logo.png" alt="Fidelity" style="float:left"></a>
+				<a class="navbar-brand text-muted" ><span class="navbar-header">Fidelity BlockChain Dashboard </span></a>
+			</div>
+			<div class="collapse navbar-collapse">
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="index">Home</a></li>
+					<li class="dropdown active">
+						<a class="dropdown-toggle" data-toggle="dropdown">Transactions<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="createTransaction">Create</a></li>
+							<li><a href="viewTransactions">View List</a></li>	
+						</ul>
+					</li>	
+					<li class="dropdown">
+						<a class="dropdown-toggle" data-toggle="dropdown">Assets<span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="createAsset">Create</a></li>
+							<li><a href="viewAsset">View List</a></li>	
+						</ul>
+					</li>	
+					<li><a href="stats">Blockchain Stats</a></li>	
+					<li><a href="about">About Us</a></li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+</header>	
+		
+		<div class="jumbotron">
+			<h1>&nbsp;&nbsp;&nbsp; Transaction Creation</h1>
+		</div>
+		<br>
+		<br>
+		
+		<!--Container for loader icon-->
+		<div class="container" style="background-color:#ededed;">
+			<div id="loader"></div>
+
+		</div>
+		<!--Container for the sender block. Contains dropdowns for Manager node, the corresponding account, asset and the quantity to be issued-->
+		<div class="container" style="background-color:#ededed;">
+			<h2>Sender</h2>
+			<div style="float:left;padding-left: 2cm;">
+					<h3>Sender Node</h3><select id="selectMN" class="form-control" style="width:200px;">
+					  <option value="" class="removable">-select manager node-</option>
+					  <option value="mn072S2N5T009RG">User Broker 1</option>
+					  <option value="mn073F754T009S6">User Broker 2</option>
+					  <option value="mn07MGW7G2008G8">User Broker 3</option>
+					  <option value="mn07MGX231G08GC">User Broker 4</option>
+					</select>
+			</div>
+			<div style="float:left;padding-left: 2cm;">
+					<h3>Account</h3><select id="selectAccount"class="form-control" style="width:200px;" disabled></select>
+			</div>
+			<div style="float:left;padding-left: 2cm;">
+					<h3>Asset</h3><select id="selectAsset" class="form-control" style="width:200px;" disabled></select>
+			</div>
+			<div id="qty" style="float:left;padding-left: 2cm">
+					<h3>Quantity</h3><input id="inputQty" type="text" class="form-control" style="width:200px;" value="0" disabled/>
+			</div>
+		</div>
+		<!--Container to display details of asset selected-->
+		<div class="container" style="background-color:#ededed;">
+			<br>
+			<strong><div id="assetDetail">
+
+			</div></strong>
+		</div>
+		<!--Container for receiver block. Contains dropdown for manager node and it's corresponding account-->
+		<div class="container" style="background-color:#ededed;">
+			<h2>Receiver</h2>
+			<div style="float:left;padding-left: 2cm;">
+					<h3>Receiver Node</h3><select id="recvrMN" class="form-control" style="width:200px;" disabled>
+					  <option value="" class="removable">-select manager node-</option>
+					  <option value="mn082FAXC4008CC">Fund Accounts</option>
+					  <!--<option value="mn073F754T009S6">FIMT-CDE</option>
+					  <option value="mn07MGW7G2008G8">FIMT-COMPLIANCE</option>
+					  <option value="mn07MGX231G08GC">FPCMS-SDS</option>-->
+					</select>
+			</div>
+			<div style="float:left;padding-left: 2cm;">
+					<h3>Account</h3><select id="recvrAccount"class="form-control" style="width:200px;" disabled></select>
+			</div>
+		</div>
+		<!--Container for central send/issue button-->
+		<div class="container" style="background-color:#ededed;">
+			<br><center><button id="submitButton"class="btn btn-primary btn-lg" disabled>SEND</button></center><br>
+		</div>			
+		<!--Container for error/success capture-->
+		<div class="container" style="background-color:#ededed;">
+			<center><i><h4 id="errorText" style="color:red"></h4></i></center><br>
+			<center><i><h4 id="successText" style="color:green"></h4></i></center>
+		</div>
+
+
+<br>
+<br>
+<footer>
+	<div id="footer">
+		<div class="container">
+				<div class="span6">
+					<p class="pull-right"><img src="img/footer_fid_logo.png" alt="Fidelity Investments"></p>
+					<p><strong>For employee use only.</strong></p>
+					<p>Unauthorized access to or use of this system is prohibited.</p>
+					<p>All access and use may be monitored and recorded.</p>
+					<p>To report an issue, contact us at +91 9600968059.</p>
+				</div>
+		</div>
+	</div>
+</footer>
+			
+
+<script>
+	$(document).ready(function(){
+		var selectedAssetQuantity = 0;
+		var $managerNodeDD = $("#selectMN");
+    	var $accountDD = $('#selectAccount');
+    	var $assetDD = $('#selectAsset');
+    	var $inputQty = $('#inputQty');
+    	var $recvMNDD = $('#recvrMN');
+    	var $recvAccDD = $('#recvrAccount');
+    	var $submit = $('#submitButton');
+    	// On change listener on sender manager node dropdown
+    	// Disables other dropdowns and loads the accounts dropdown and enables loader icon till request is complete
+    	$managerNodeDD.change(function() {
+    		$('#loader').loader();
+    		// open loader icon
+    		$.loader.open();
+    		// disabling other dropdowns
+    		$accountDD.attr('disabled', 'disabled');
+    		$assetDD.attr('disabled', 'disabled');
+    		var selectedManagerNode = $managerNodeDD.val();
+    		$.post("/listAccounts",{manager: selectedManagerNode}, function(data){
+    			// catching error case where request times out on the server side
+    			if(data == "undefined"){
+    				alert("Request timed out! Try again");
+    				$.loader.close();
+    			}
+    			else{
+    				// appending value to next dropdown
+					$accountDD.empty().append(function() {
+			            var output = '<option value="" class="removable" default selected>-select account-</option>';
+			            $.each(data, function(key, value) {
+			                output += '<option value="'+value['id']+'">' + value['label'] + '</option>';
+			            });
+			            $accountDD.removeAttr('disabled');
+			            // request complete
+			            $.loader.close();
+			            return output;
+		       		});
+				}		
+			});
+    	});
+
+    	// Function for change on sender account dropdown
+    	// Disables asset dropdown and enables loader icon till request is complete
+    	$accountDD.change(function() {
+    		$('#loader').loader();
+    		$.loader.open();
+    		$assetDD.attr('disabled', 'disabled');
+    		var selectedAccount = $accountDD.val();
+    		$.post("/listAssets",{account: selectedAccount}, function(data){
+    			if(data == "undefined"){
+    				alert("Request timed out! Try again");
+    				$.loader.close();
+    			}
+    			else{
+					$assetDD.empty().append(function() {
+						if(data.length != 0){
+				          	var output = '<option value="" class="removable" default selected>-select asset-</option>';
+				            $.each(data, function(key, value) {
+				                output += '<option value="'+value['asset_id']+'|'+value['total']+'">' + value['asset_id'] + '</option>';
+				            });
+				            $assetDD.removeAttr('disabled');
+				            return output;
+			        	}else{
+			        		return '<option class="removable">No assets!</option>';
+			        	}
+		       		});
+		       		$.loader.close();
+				}
+			
+			});
+
+    	});
+		
+		// On change listerner for the asset dropdown, which fills value to the asset detail label
+    	$assetDD.change(function() {
+    		$('#assetDetail').html('Loading..');
+    		$inputQty.attr('disabled', 'disabled');
+    		var selectedArray = $assetDD.val().split("|");
+    		var selectedAsset = selectedArray[0];
+    		var availableQty = selectedArray[1];
+    		$.post("/detailedAsset",{assetID: selectedAsset}, function(data){
+    			$inputQty.removeAttr('disabled');
+    			$recvMNDD.removeAttr('disabled');
+				selectedAssetQuantity = availableQty;
+				$('#assetDetail').html("Label: " + data['label'] +"<br> Quantity: " + availableQty);
+			});
+
+    	});
+
+    	// On change listener on receiver manager node dropdown
+    	$recvMNDD.change(function() {
+    		$('#loader').loader();
+    		// open loader icon
+    		$.loader.open();
+    		// disabling other dropdowns
+    		$recvAccDD.attr('disabled', 'disabled');
+    		var selectedManagerNode = $recvMNDD.val();
+    		$.post("/listAccounts",{manager: selectedManagerNode}, function(data){
+    			// catching error case where request times out on the server side
+    			if(data == "undefined"){
+    				alert("Request timed out! Try again");
+    				$.loader.close();
+    			}
+    			else{
+    				// appending value to next dropdown
+					$recvAccDD.empty().append(function() {
+			            var output = '<option value="" class="removable" default selected>-select account-</option>';
+			            $.each(data, function(key, value) {
+			                output += '<option value="'+value['id']+'">' + value['label'] + '</option>';
+			            });
+			            $recvAccDD.removeAttr('disabled');
+			            // request complete
+			            $.loader.close();
+			            return output;
+		       		});
+				}		
+			});
+    	});
+
+		// Function for change on receiver account dropdown
+    	$recvAccDD.change(function() {
+    		$submit.removeAttr('disabled');
+    	});
+
+    	// Listerner for on click of the button
+    	$submit.on('click',function(){
+    		var inputQuantity = $('#inputQty').val();	
+    		if(parseInt(selectedAssetQuantity) < parseInt($('#inputQty').val())){
+    			$('#errorText').text("Insufficient assets available. You can send a maximum of " + selectedAssetQuantity);
+    		}else{
+    			$('#loader').loader();
+    			$('#errorText').text("");
+    			$('#successText').text("");
+    			var assetID = $assetDD.val().split("|")[0];
+    			var sendAccount = $accountDD.val();
+    			var receiveAccount = $recvAccDD.val();
+    			$.post("/createTx",{sender: sendAccount,receiver:receiveAccount,assetID:assetID,qty:inputQuantity}, function(data){
+    				if(data == "success"){
+    					$('#successText').text("Transaction created successfully");
+    				}else if(data == "fail"){
+    					$('#errorText').text("Error Occured in creating transaction");
+    				}else{
+    					$('#errorText').text("Unknown Error");
+    				}
+    				$.loader.close();
+    			});
+    		}
+    	});
+	});
+</script>
+</BODY>
+</HTML>
